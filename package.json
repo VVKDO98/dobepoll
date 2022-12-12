@@ -1,0 +1,37 @@
+{
+  "name": "dobepoll",
+  "version": "1.0.0",
+  "description": "poll app using react nodejs and graphql",
+  "main": "index.js",
+  "scripts": {
+    "start": "lerna run --parallel start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VVKDO98/dobepoll.git"
+  },
+  "keywords": [
+    "react",
+    "nodejs",
+    "graphql",
+    "poll"
+  ],
+  "workspaces": [
+    "packages/*"
+  ],
+  "author": "BenoitBlaevoet & VVKDO",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VVKDO98/dobepoll/issues"
+  },
+  "homepage": "https://github.com/VVKDO98/dobepoll#readme",
+  "devDependencies": {
+    "eslint": "^8.29.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.6.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.31.11",
+    "lerna": "^6.1.0"
+  }
+}
