@@ -1,8 +1,6 @@
-import Fastify from 'fastify'
 import { PrismaClient } from '@prisma/client'
 import { ApolloServer } from '@apollo/server'
 import { startStandaloneServer } from '@apollo/server/standalone'
-const app = Fastify({ logger: true })
 const prisma = new PrismaClient()
 
 const typeDefs = `#graphQL
@@ -16,15 +14,21 @@ const typeDefs = `#graphQL
   }
 
   type Query {
-    polls: [Poll]
+    polls: [Poll],
+    poll(id: Int): Poll
   }
 `
 const resolvers = {
   Query: {
-    polls: async () => await prisma.Polls.findMany({})
+    polls: async () => await prisma.Polls.findMany({}),
+    poll: async (_, { id }) => await prisma.Polls.findUnique({
+      where: {
+        id
+      }
+    })
+
   }
 }
-
 const server = new ApolloServer({
   typeDefs,
   resolvers
@@ -33,20 +37,4 @@ const server = new ApolloServer({
 const { url } = await startStandaloneServer(server, {
   listen: { port: 4000 }
 })
-
-console.log('Server ready at:' + url)
-
-// app.get('/', async (req, rep) => {
-//   return { hello: 'world' }
-// })
-
-// const start = () => {
-//   try {
-//     app.listen({ port: 3000 }, console.log('server started'))
-//   } catch (err) {
-//     app.log.error(err)
-//     process.exit(1)
-//   }
-// }
-
-// start()
+console.log(url)
