@@ -1,6 +1,7 @@
 import React from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useQuery, gql } from '@apollo/client'
+import Button from './Button'
 
 const GET_POLL_BY_ID = gql`
 query GetPollByID($id: Int) {
@@ -42,9 +43,9 @@ const PollComp = () => {
         </div>
       </div>
       <div className='w-full flex items-center justify-between gap-2'>
-        <button className='w-1/3 h-8 bg-sky-500 rounded-md font-semibold'><Link>Vote</Link></button>
-        <button className='w-1/3 h-8 bg-slate-500 rounded-md font-semibold'><Link>Result</Link></button>
-        <button className='w-1/3 h-8 bg-slate-500 rounded-md font-semibold'><Link>Share</Link></button>
+        <Button content={'Vote'} link={'/'}/>
+        <Button content={'Result'} link={`/poll/${id}/result`} secondary={true}/>
+        <Button content={'Share'} link={'/'} secondary={true}/>
       </div>
     </div>
   )
