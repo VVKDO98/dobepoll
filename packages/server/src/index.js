@@ -17,6 +17,10 @@ const typeDefs = `#graphQL
     polls: [Poll],
     poll(id: Int): Poll
   }
+
+  type Mutation {
+    addPoll(name: String, description: String): Poll
+  }
 `
 const resolvers = {
   Query: {
@@ -26,7 +30,17 @@ const resolvers = {
         id
       }
     })
-
+  },
+  Mutation: {
+    addPoll: async (_, { name, description }) => {
+      console.log(name + ' ' + description)
+      const poll = await prisma.Polls.create({
+        data: {
+          name,
+          description
+        }
+      })
+    }
   }
 }
 const server = new ApolloServer({
