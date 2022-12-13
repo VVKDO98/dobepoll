@@ -3,12 +3,14 @@ import Navbar from './components/Navbar'
 
 const Layout = ({ children }) => {
   return (
-    <>
-      <Navbar/>
-      <main>
-        {children}
-      </main>
-    </>
+    <div className='w-screen h-screen dark:bg-slate-800 dark:text-slate-50 '>
+      <div className='w-4/5 mx-auto'>
+        <Navbar/>
+        <main>
+          {children}
+        </main>
+      </div>
+    </div>
   )
 }
 
