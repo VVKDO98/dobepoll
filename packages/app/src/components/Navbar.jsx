@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const Navbar = () => {
   return (
     <nav className='fixed top-5 w-full mx-auto'>
-      <div className='w-4/5 mx-auto'>
+      <div className='w-4/5 mx-auto flex justify-between'>
         <div className='w-full flex justify-between items-center gap-2 sm:w-auto sm:gap-10'>
           <Link to='/' className='font-semibold'>DobePoll</Link>
           <Link to='/create' className='dark:hover:text-sky-500'>Create a poll</Link>
