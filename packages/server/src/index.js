@@ -25,11 +25,14 @@ const typeDefs = `#graphQL
 const resolvers = {
   Query: {
     polls: async () => await prisma.Polls.findMany({}),
-    poll: async (_, { id }) => await prisma.Polls.findUnique({
-      where: {
-        id
-      }
-    })
+    poll: async (_, { id }) => {
+      console.log(id)
+      return await prisma.Polls.findUnique({
+        where: {
+          id
+        }
+      })
+    }
   },
   Mutation: {
     addPoll: async (_, { name, description }) => {
