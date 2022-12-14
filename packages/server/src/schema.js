@@ -28,23 +28,13 @@ const typeDefs = `
   input PollInput{
     name: String
     description:String
-  }
-
-  input PollInput2{
-    name: String
-    description:String
     options:[OptionsInput]
-  }
-
-  input OptionsInput{
-    name: String
   }
 
   type Mutation {
     addPoll(name: String!, description: String): Poll 
     addOptions(name: String!): Poll 
-    addPollWithOptions(poll: PollInput!, options: OptionsInput!):Response
-    addPollWithOptions2(poll: PollInput2!):Response
+    addPollWithOptions(poll: PollInput!):Response
   }
 `
 export {
