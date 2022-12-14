@@ -1,48 +1,8 @@
-import { PrismaClient } from '@prisma/client'
 import { ApolloServer } from '@apollo/server'
 import { startStandaloneServer } from '@apollo/server/standalone'
-const prisma = new PrismaClient()
+import { typeDefs } from './schema.js'
+import { resolvers } from './resolvers/index.js'
 
-const typeDefs = `#graphQL
-  # Comment
-  type Poll {
-    id : Int
-    name : String
-    description : String
-  #  options : Array
-  #  votes : Array
-  }
-
-  type Query {
-    polls: [Poll],
-    poll(id: Int): Poll
-  }
-
-  type Mutation {
-    addPoll(name: String, description: String): Poll
-  }
-`
-const resolvers = {
-  Query: {
-    polls: async () => await prisma.Polls.findMany({}),
-    poll: async (_, { id }) => await prisma.Polls.findUnique({
-      where: {
-        id
-      }
-    })
-  },
-  Mutation: {
-    addPoll: async (_, { name, description }) => {
-      console.log(name + ' ' + description)
-      const poll = await prisma.Polls.create({
-        data: {
-          name,
-          description
-        }
-      })
-    }
-  }
-}
 const server = new ApolloServer({
   typeDefs,
   resolvers
