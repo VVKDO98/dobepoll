@@ -9,9 +9,9 @@ const CreatePollComp = () => {
       <Input name={'Description'} value={'description'}/>
       <div className='mb-5 flex flex-col'>
         <p className='text-lg'>Options</p>
-        <Button nolink={true} content={'Add'} event={''} secondary={true}/>
+        <Button nolink={true} content={'Add'} event={() => console.log('hello')} secondary={true}/>
       </div>
-      <Button nolink={true} content={'Create poll'} event={''} secondary={false}/>
+      <Button nolink={true} content={'Create poll'} event={() => console.log('hello')} secondary={false}/>
     </div>
   )
 }

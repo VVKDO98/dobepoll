@@ -1,18 +1,20 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const Button = ({ nolink, content, link, secondary, event }) => {
-  if (nolink) {
+const Button = ({ content, link, secondary, event }) => {
+  if (!link) {
     return <button
               className={secondary ? 'w-1/3 h-10 bg-slate-500 rounded-md font-semibold' : 'w-1/3 h-10 bg-sky-500 rounded-md font-semibold'}
-              onClick={() => console.log('Herlo')}
+              onClick={event || undefined}
             >
               {content}
             </button>
   }
 
   return (
-    <button className={secondary ? 'w-1/3 h-10 bg-slate-500 rounded-md font-semibold' : 'w-1/3 h-10 bg-sky-500 rounded-md font-semibold'}>
+    <button
+      className={secondary ? 'w-1/3 h-10 bg-slate-500 rounded-md font-semibold' : 'w-1/3 h-10 bg-sky-500 rounded-md font-semibold'}
+    >
       <Link to={link}>{content}</Link>
     </button>
   )
