@@ -8,7 +8,7 @@ const Poll = {
   description: (parent) => parent.description,
   options: (parent, args) => {
     return prisma.Options.findMany({
-      where: { poll_id: Number(parent.id) }
+      where: { polls_id: Number(parent.id) }
     })
   }
 }
