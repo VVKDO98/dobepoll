@@ -2,6 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useQuery, gql } from '@apollo/client'
 import Button from './Button'
+import PollOption from './PollOption'
 
 const GET_POLL_BY_ID = gql`
 query GetPollByID($id: Int) {
@@ -9,6 +10,10 @@ query GetPollByID($id: Int) {
     description
     id
     name
+    options {
+      id
+      name
+    }
   }
 }
 `
@@ -23,6 +28,8 @@ const PollComp = () => {
   if (loading) return <p>Loading ...</p>
   if (error) return <p>Error ...</p>
 
+  console.log(data)
+
   return (
     <div className='w-full p-5 dark:bg-slate-600 rounded-md'>
       <div className='mb-4'>
@@ -32,15 +39,7 @@ const PollComp = () => {
       </div>
       <div className='mb-4'>
         <h3 className='mb-1 text-base font-semibold'>Options</h3>
-        {/* Map options */}
-        <div className='flex items-center gap-2'>
-          <input type="radio" name="" className='dark:bg-slate-800 dark:border-slate-800 dark:text-slate-900'/>
-          <label htmlFor="">aaaa</label>
-        </div>
-        <div className='flex items-center gap-2'>
-          <input type="radio" name="" className='dark:bg-slate-800 dark:border-slate-800 dark:text-slate-900'/>
-          <label htmlFor="">aaaa</label>
-        </div>
+        {data.poll.options.map((option) => <PollOption key={option.id} id={option.id} name={option.name}/>)}
       </div>
       <div className='w-full flex items-center justify-between gap-2'>
         <Button content={'Vote'} link={'/'}/>
