@@ -5,8 +5,10 @@ import Layout from '../Layout'
 const CreatePoll = () => {
   return (
         <Layout>
-            <h1>Create poll</h1>
-            <CreatePollComp/>
+            <div className='w-full pt-24'>
+              <h1 className='font-bold text-3xl mb-10'>Create poll</h1>
+              <CreatePollComp/>
+            </div>
         </Layout>
   )
 }
