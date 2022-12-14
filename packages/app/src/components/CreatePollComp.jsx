@@ -1,22 +1,17 @@
 import React from 'react'
+import Button from './Button'
+import Input from './Input'
 
 const CreatePollComp = () => {
   return (
-    <div>
-      <form action="">
-        <div>
-          <label htmlFor="title">Title</label>
-          <input type="text" name="title" />
-        </div>
-        <div>
-          <label htmlFor="description">Description</label>
-          <input type="text" name="description" />
-        </div>
-        <div>
-          <label htmlFor="options">Options</label>
-          <input type="text" name="options" />
-        </div>
-      </form>
+    <div className='w-full p-5 dark:bg-slate-600 rounded-md'>
+      <Input name={'Title'} value={'title'}/>
+      <Input name={'Description'} value={'description'}/>
+      <div className='mb-5 flex flex-col'>
+        <p className='text-lg'>Options</p>
+        <Button nolink={true} content={'Add'} event={() => console.log('hello')} secondary={true}/>
+      </div>
+      <Button nolink={true} content={'Create poll'} event={() => console.log('hello')} secondary={false}/>
     </div>
   )
 }
