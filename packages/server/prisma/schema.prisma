@@ -16,23 +16,23 @@ model Polls {
   description String
   options     Options[]
   votes       Votes[]
-  created_at DateTime @default(now())
+  created_at  DateTime  @default(now())
 }
 
 model Options {
   id       Int     @id @default(autoincrement())
   name     String
   polls_id Int
-  polls    Polls   @relation(fields: [polls_id], references: [id])
+  polls    Polls   @relation(fields: [polls_id], references: [id], onDelete: Cascade)
   votes    Votes[]
 }
 
 model Votes {
   id         Int     @id @default(autoincrement())
-  identifier String @unique
+  identifier String  @unique
   ipadress   String
   options_id Int
-  options    Options @relation(fields: [options_id], references: [id])
+  options    Options @relation(fields: [options_id], references: [id], onDelete: Cascade)
   polls_id   Int
-  polls      Polls   @relation(fields: [polls_id], references: [id])
+  polls      Polls   @relation(fields: [polls_id], references: [id], onDelete: Cascade)
 }

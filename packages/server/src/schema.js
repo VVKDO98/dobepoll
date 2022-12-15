@@ -33,6 +33,7 @@ const typeDefs = `
     name: String
     description:String
     options:[OptionsInput]
+    id: Int
   }
 
   input VoteInput{
@@ -46,6 +47,7 @@ const typeDefs = `
 
   type Mutation {
     addPollWithOptions(poll: PollInput!):PollResponse
+    deletePoll(pollId: PollInput!):String
     vote(vote: VoteInput!):String
   }
 

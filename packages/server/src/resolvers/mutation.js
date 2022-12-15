@@ -29,6 +29,16 @@ const Mutation = {
       console.log(e)
     }
   },
+  deletePoll: async (_, { pollId }, ctx, info) => {
+    try {
+      const resDelPoll = await prisma.polls.delete({
+        where: {
+          id: pollId.id
+        }
+      })
+      return resDelPoll ? 'Poll deleted' : null
+    } catch (e) { console.log(e) }
+  },
   vote: async (_, { vote }, ctx, info) => {
     try {
       console.log(vote.polls_id + '' + ctx.ip)
