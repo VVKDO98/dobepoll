@@ -26,7 +26,7 @@ const Mutation = {
       })
       return { poll: resPoll }
     } catch (e) {
-      console.log(e)
+      console.error(e)
     }
   },
   deletePoll: async (_, { pollId }, ctx, info) => {
@@ -37,7 +37,7 @@ const Mutation = {
         }
       })
       return resDelPoll ? 'Poll deleted' : null
-    } catch (e) { console.log(e) }
+    } catch (e) { console.error(e) }
   },
   vote: async (_, { vote }, ctx, info) => {
     try {
@@ -57,7 +57,7 @@ const Mutation = {
         }
       })
       return resVote ? 'Vote updated' : null
-    } catch (e) { console.log(e) }
+    } catch (e) { console.error(e) }
   }
 }
 
