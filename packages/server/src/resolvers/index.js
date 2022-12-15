@@ -8,7 +8,12 @@ const Poll = {
   description: (parent) => parent.description,
   options: (parent, args) => {
     return prisma.Options.findMany({
-      where: { polls_id: Number(parent.id) }
+      where: { polls_id: Number(parent.id) },
+      include: {
+        _count: {
+          select: { votes: true }
+        }
+      }
     })
   }
 }

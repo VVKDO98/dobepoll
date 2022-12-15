@@ -4,6 +4,11 @@ const typeDefs = `
     name : String
     polls_id : Int
     poll : Poll
+    _count: Count
+  }
+
+  type Count {
+    votes: Int
   }
 
   type Poll {

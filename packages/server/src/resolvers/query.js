@@ -6,7 +6,16 @@ const Query = {
       id: Number(args.id)
     }
   }),
-  options: async () => await prisma.Options.findMany({})
+  options: async () => {
+    const options = await prisma.Options.findMany({
+      include: {
+        _count: {
+          select: { votes: true }
+        }
+      }
+    })
+    return options
+  }
 }
 
 export {
