@@ -41,13 +41,12 @@ const Mutation = {
   },
   vote: async (_, { vote }, ctx, info) => {
     try {
-      console.log(vote.polls_id + '' + ctx.ip)
+      // console.log(vote.polls_id + '' + ctx.ip)
       const resVote = await prisma.votes.upsert({
         where: {
           identifier: vote.polls_id + '' + ctx.ip
         },
         update: {
-          ipadress: ctx.ip,
           options_id: vote.options_id
         },
         create: {
