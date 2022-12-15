@@ -1,16 +1,6 @@
 import { prisma } from '../database.js'
 
 const Mutation = {
-  addPoll: async (_, { name, description }) => {
-    const poll = await prisma.Polls.create({
-      data: {
-        name,
-        description
-      }
-    })
-    return poll
-  },
-
   /* Variable example
     {
       "poll":{
@@ -23,7 +13,7 @@ const Mutation = {
       }
     }
    */
-  addPollWithOptions: async (_, { poll }) => {
+  addPollWithOptions: async (_, { poll }, ctx, info) => {
     try {
       const resPoll = await prisma.polls.create({
         data: {
@@ -38,8 +28,28 @@ const Mutation = {
     } catch (e) {
       console.log(e)
     }
+  },
+  vote: async (_, { vote }, ctx, info) => {
+    try {
+      console.log(vote.polls_id + '' + ctx.ip)
+      const resVote = await prisma.votes.upsert({
+        where: {
+          identifier: vote.polls_id + '' + ctx.ip
+        },
+        update: {
+          ipadress: ctx.ip,
+          options_id: vote.options_id
+        },
+        create: {
+          identifier: vote.polls_id + '' + ctx.ip,
+          ipadress: ctx.ip,
+          polls_id: vote.polls_id,
+          options_id: vote.options_id
+        }
+      })
+      return resVote ? 'Vote updated' : null
+    } catch (e) { console.log(e) }
   }
-
 }
 
 export {

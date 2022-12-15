@@ -8,7 +8,10 @@ const server = new ApolloServer({
   resolvers
 })
 
-const { url } = await startStandaloneServer(server, {
-  listen: { port: 4000 }
-})
+const { url } = await startStandaloneServer(
+  server, {
+    context: async ({ req }) => ({ ip: req.socket.remoteAddress }),
+    listen: { port: 4000 }
+  }
+)
 console.log(url)

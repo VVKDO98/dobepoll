@@ -29,6 +29,7 @@ model Options {
 
 model Votes {
   id         Int     @id @default(autoincrement())
+  identifier String @unique
   ipadress   String
   options_id Int
   options    Options @relation(fields: [options_id], references: [id])

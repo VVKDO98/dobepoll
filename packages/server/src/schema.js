@@ -1,22 +1,26 @@
 const typeDefs = `
   type Options {
-    id : Int
+    id : ID!
     name : String
     polls_id : Int
     poll : Poll
   }
 
   type Poll {
-    id: ID
+    id: ID!
     name: String
     description: String
     created_at: String
     options: [Options]
   }
 
-  type Response {
-    poll: Poll
+  type Vote{
+    id: ID!
+    identifier: String
+    polls_id: Int
+    options_id: Int
     option: Options
+    poll: Poll
   }
 
   type Query {
@@ -31,10 +35,22 @@ const typeDefs = `
     options:[OptionsInput]
   }
 
+  input VoteInput{
+    options_id: Int
+    polls_id: Int
+  }
+
+  input OptionsInput{
+    name: String
+  }
+
   type Mutation {
-    addPoll(name: String!, description: String): Poll 
-    addOptions(name: String!): Poll 
-    addPollWithOptions(poll: PollInput!):Response
+    addPollWithOptions(poll: PollInput!):PollResponse
+    vote(vote: VoteInput!):String
+  }
+
+  type PollResponse {
+    poll: Poll
   }
 `
 export {
