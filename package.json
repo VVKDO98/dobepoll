@@ -20,8 +20,8 @@
     "packages/*"
   ],
   "dependencies": {
-    "app":"*",
-    "server":"*"
+    "app": "*",
+    "server": "*"
   },
   "author": "BenoitBlaevoet & VVKDO",
   "license": "ISC",
