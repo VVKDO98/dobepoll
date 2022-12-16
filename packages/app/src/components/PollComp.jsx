@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useQuery, gql } from '@apollo/client'
 import Button from './Button'
 import PollOption from './PollOption'
+import { formatDistance } from 'date-fns'
 
 const GET_POLL_BY_ID = gql`
 query GetPollByID($id: Int) {
@@ -10,6 +11,7 @@ query GetPollByID($id: Int) {
     description
     id
     name
+    created_at
     options {
       id
       name
@@ -35,7 +37,7 @@ const PollComp = () => {
       <div className='mb-10'>
         <h2 className='mb-1 text-xl font-semibold xl:text-2xl'>{data.poll.name}</h2>
         <p className='mb-1 xl:text-lg'>{data.poll.description}</p>
-        <p className='text-xs xl:text-sm'>5 mins ago</p>
+        <p className='text-xs xl:text-sm'>{formatDistance(new Date(parseInt(data.poll.created_at)), new Date(), { addSuffix: true })}</p>
       </div>
       <div className='mb-10'>
         <h3 className='mb-1 text-base font-semibold xl:text-xl'>Options</h3>
