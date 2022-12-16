@@ -6,6 +6,7 @@ import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHt
 import { WebSocketServer } from 'ws'
 import { makeExecutableSchema } from '@graphql-tools/schema'
 import { useServer } from 'graphql-ws/lib/use/ws'
+import cors from 'cors'
 
 import { typeDefs } from './schema.js'
 import { resolvers } from './resolvers/index.js'
@@ -44,7 +45,7 @@ async function startApolloServer () {
 
   await server.start()
   const { json } = bodyParser
-  app.use(json(), expressMiddleware(server))
+  app.use(cors(), json(), expressMiddleware(server))
 
   app.use((req, res) => {
     res.status(200)
