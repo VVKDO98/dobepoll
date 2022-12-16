@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { gql, useMutation } from '@apollo/client'
 import { Formik, Field, Form } from 'formik'
 import { useNavigate } from 'react-router-dom'
+import Button from './Button'
 
 const POST_POLL = gql`
 mutation Mutation($poll: PollInput!) {
@@ -26,48 +27,49 @@ const FormikForm = () => {
   const navigate = useNavigate()
 
   return (
-    <Formik
-      initialValues={{
-        name: '',
-        description: '',
-        options: [{ name: '' }]
-      }}
-      onSubmit={async (values, { resetForm }) => {
-        const resp = await addPollWithOptions({ variables: { poll: values } })
-        console.log(resp)
-        resetForm()
-        navigate(`/poll/${resp.data.addPollWithOptions.poll.id}`)
-      }}
-    >
-      {({ values }) => (
-        <Form>
-          <label htmlFor="name">Name</label>
-          <Field type="text" name="name" />
-
-          <label htmlFor="description">Description</label>
-          <Field type="text" name="description" />
-
-          {values.options.map((item, idx) => (
-            <div key={`name-${idx}`}>
-              <label htmlFor={`name-${idx}`}>Option</label>
-              <Field type="text" name={`options[${idx}].name`} />
+    <div className='w-full p-5 dark:bg-slate-600 rounded-md'>
+      <Formik
+        initialValues={{
+          name: '',
+          description: '',
+          options: [{ name: '' }]
+        }}
+        onSubmit={async (values, { resetForm }) => {
+          const resp = await addPollWithOptions({ variables: { poll: values } })
+          console.log(resp)
+          resetForm()
+          navigate(`/poll/${resp.data.addPollWithOptions.poll.id}`)
+        }}
+      >
+        {({ values }) => (
+          <Form className='w-full'>
+            <div className='mb-3 flex flex-col'>
+              <label htmlFor="name">Name</label>
+              <Field className='dark:bg-slate-800 dark:border-slate-800 rounded-md' type="text" name="name" />
             </div>
-          ))}
-
-          <button
-            type="button"
-            onClick={() => {
+            <div className='mb-3 flex flex-col'>
+              <label htmlFor="description">Description</label>
+              <Field className='dark:bg-slate-800 dark:border-slate-800 rounded-md' type="text" name="description" />
+            </div>
+            <div>
+              <label htmlFor="options">Options</label>
+              {values.options.map((item, idx) => (
+                <div className='mb-3' key={`name-${idx}`}>
+                  <Field className='w-full dark:bg-slate-800 dark:border-slate-800 rounded-md' type="text" name={`options[${idx}].name`} />
+                </div>
+              ))}
+            </div>
+            <div className='flex flex-col gap-3'>
+            <Button type={'button'} content={'Add'} secondary={true} event={() => {
               values.options.push({ name: '' })
               setCount(count + 1)
-            }}
-          >
-            Add Name
-          </button>
-
-          <button type="submit">Submit</button>
-        </Form>
-      )}
-    </Formik>
+            }}/>
+            <Button type={'submit'} content={'Create poll'} />
+            </div>
+          </Form>
+        )}
+      </Formik>
+    </div>
   )
 }
 
