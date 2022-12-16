@@ -44,14 +44,14 @@ const Mutation = {
       // console.log(vote.polls_id + '' + ctx.ip)
       const resVote = await prisma.votes.upsert({
         where: {
-          identifier: vote.polls_id + '' + ctx.ip
+          identifier: vote.polls_id + '' + vote.identifier
         },
         update: {
           options_id: vote.options_id
         },
         create: {
-          identifier: vote.polls_id + '' + ctx.ip,
-          ipadress: ctx.ip,
+          identifier: vote.polls_id + '' + vote.identifier,
+          ipadress: vote.identifier,
           polls_id: vote.polls_id,
           options_id: vote.options_id
         }

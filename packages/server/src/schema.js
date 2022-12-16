@@ -44,6 +44,7 @@ const typeDefs = `
   input VoteInput{
     options_id: Int
     polls_id: Int
+    identifier: String
   }
 
   input OptionsInput{
@@ -54,6 +55,10 @@ const typeDefs = `
     addPollWithOptions(poll: PollInput!):PollResponse
     deletePoll(pollId: PollInput!):String
     vote(vote: VoteInput!):String
+  }
+
+  type Subscription {
+    voteAdded(pollId: ID!): Vote
   }
 
   type PollResponse {
