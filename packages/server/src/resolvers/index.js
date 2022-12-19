@@ -1,7 +1,6 @@
 import { prisma } from '../database.js'
 import { Query } from './query.js'
-import { Mutation } from './mutation.js'
-import { Subscription } from './subscription.js'
+import { Mutation, Subscription } from './mutation.js'
 
 const Poll = {
   id: (parent) => parent.id,
@@ -22,7 +21,8 @@ const Poll = {
 const resolvers = {
   Poll,
   Query,
-  Mutation
+  Mutation,
+  Subscription
 }
 
 export {

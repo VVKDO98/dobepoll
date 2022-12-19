@@ -15,9 +15,21 @@ const Query = {
       }
     })
     return options
+  },
+  getVotes: async (_, { vote }) => {
+    const votes = await prisma.options.findMany({
+      where: {
+        polls_id: vote.polls_id
+      },
+      include: {
+        _count: {
+          select: { votes: true }
+        }
+      }
+    })
+    return votes
   }
 }
-
 export {
   Query
 }
