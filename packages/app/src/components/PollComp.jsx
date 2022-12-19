@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useMutation, useQuery, gql } from '@apollo/client'
 import Button from './Button'
 import PollOption from './PollOption'
 import { formatDistance } from 'date-fns'
+import { v4 as uuidv4 } from 'uuid'
 
 const GET_POLL_BY_ID = gql`
 query GetPollByID($id: Int) {
@@ -27,6 +28,7 @@ mutation Mutation($vote: VoteInput!) {
 `
 
 const PollComp = () => {
+  const navigate = useNavigate()
   const { id } = useParams()
   const paramsId = parseInt(id)
   const { loading, error, data } = useQuery(GET_POLL_BY_ID, {
@@ -46,12 +48,14 @@ const PollComp = () => {
     const resp = await vote({
       variables: {
         vote: {
+          identifier: uuidv4(),
           options_id: parseInt(val),
           polls_id: parseInt(id)
         }
       }
     })
     console.log(resp)
+    navigate(`/poll/${paramsId}/result`)
     return resp
   }
 
