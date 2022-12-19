@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useMutation, useQuery, gql } from '@apollo/client'
 import Button from './Button'
@@ -37,6 +37,20 @@ const PollComp = () => {
   const [vote, { loading: loadingVote, error: errorVote, data: dataVote }] = useMutation(POST_VOTE)
 
   const [optionValue, setOptionValue] = useState(0)
+  const [storedValue, setStoredValue] = useState('')
+
+  useEffect(() => {
+    const storedIdentifier = localStorage.getItem('identifier')
+    if (storedIdentifier) {
+      setStoredValue(storedIdentifier)
+      console.log(storedValue)
+    }
+    if (!storedIdentifier) {
+      localStorage.setItem('identifier', uuidv4())
+      setStoredValue(localStorage.getItem('identifier'))
+      console.log(storedValue)
+    }
+  }, [])
 
   if (loading) return <p>Loading ...</p>
   if (error) return <p>Error ...</p>
@@ -48,13 +62,12 @@ const PollComp = () => {
     const resp = await vote({
       variables: {
         vote: {
-          identifier: uuidv4(),
+          identifier: storedValue,
           options_id: parseInt(val),
           polls_id: parseInt(id)
         }
       }
     })
-    console.log(resp)
     navigate(`/poll/${paramsId}/result`)
     return resp
   }
