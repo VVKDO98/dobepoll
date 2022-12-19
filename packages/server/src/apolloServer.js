@@ -29,6 +29,9 @@ async function startApolloServer () {
   const serverCleanup = useServer({ schema }, wsServer)
   const server = new ApolloServer({
     schema,
+    context: async (ctx, msg, args) => {
+      return 'hello'
+    },
     plugins: [
       ApolloServerPluginDrainHttpServer({ httpServer }),
       {

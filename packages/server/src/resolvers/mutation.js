@@ -1,4 +1,7 @@
 import { prisma } from '../database.js'
+import { PubSub } from 'graphql-subscriptions'
+
+const pubsub = new PubSub()
 
 const Mutation = {
   /* Variable example
@@ -41,7 +44,6 @@ const Mutation = {
   },
   vote: async (_, { vote }, ctx, info) => {
     try {
-      // console.log(vote.polls_id + '' + ctx.ip)
       const resVote = await prisma.votes.upsert({
         where: {
           identifier: vote.polls_id + '' + vote.identifier
@@ -56,11 +58,31 @@ const Mutation = {
           options_id: vote.options_id
         }
       })
+      const getVotes = await prisma.options.findMany({
+        where: {
+          polls_id: vote.polls_id
+        },
+        include: {
+          _count: {
+            select: { votes: true }
+          }
+        }
+      })
+      pubsub.publish(`VOTE_ADDED_${vote.polls_id}`, { voteSub: getVotes })
       return resVote ? 'Vote updated' : null
     } catch (e) { console.error(e) }
   }
 }
 
+const Subscription = {
+  voteSub: {
+    subscribe: async (_, { pollId }) => {
+      return pubsub.asyncIterator([`VOTE_ADDED_${pollId}`])
+    }
+  }
+}
+
 export {
-  Mutation
+  Mutation,
+  Subscription
 }

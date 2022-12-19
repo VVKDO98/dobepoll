@@ -28,11 +28,6 @@ const typeDefs = `
     poll: Poll
   }
 
-  type Query {
-    polls: [Poll],
-    poll(id: Int): Poll
-    options: [Options]
-  }
 
   input PollInput{
     name: String
@@ -50,6 +45,13 @@ const typeDefs = `
   input OptionsInput{
     name: String
   }
+  type Query {
+    polls: [Poll],
+    poll(id: Int): Poll
+    options: [Options]
+    getVotes: [Options]
+    currentNumber: Int
+  }
 
   type Mutation {
     addPollWithOptions(poll: PollInput!):PollResponse
@@ -58,7 +60,7 @@ const typeDefs = `
   }
 
   type Subscription {
-    voteAdded(pollId: ID!): Vote
+    voteSub(pollId: Int): [Options]
   }
 
   type PollResponse {
