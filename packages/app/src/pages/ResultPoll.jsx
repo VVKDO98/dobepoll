@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Layout from '../Layout'
 import { useQuery, gql } from '@apollo/client'
 import { useParams } from 'react-router-dom'
@@ -23,19 +23,30 @@ query Poll($id: Int) {
 }
 `
 
+const GET_OPTIONS_UPDATE = gql`
+subscription Subscription($pollId: Int) {
+  voteSub(pollId: $pollId) {
+    name
+    _count {
+      votes
+    }
+  }
+}
+`
+
 const ResultPoll = () => {
   const { id } = useParams()
   const paramsId = parseInt(id)
+
   const { loading, error, data } = useQuery(GET_POLL_RESULT, {
     variables: { id: paramsId }
   })
 
+  const [options, setOptions] = useState([])
   const currentUrl = window.location.href
 
   if (loading) return <p>Loading ...</p>
   if (error) return <p>Error ...</p>
-
-  console.log(data)
 
   return (
     <Layout>
@@ -50,8 +61,8 @@ const ResultPoll = () => {
           <div className='mb-10'>
             {data.poll.options.map((option) => {
               return <div key={option.id}>
-                      <p>{option.name} : {option._count.votes} votes</p>
-                    </div>
+                        <p>{option.name} : {option._count.votes} votes</p>
+                      </div>
             })}
           </div>
           <div className='w-full flex items-center justify-center gap-2'>
