@@ -30,6 +30,8 @@ const ResultPoll = () => {
     variables: { id: paramsId }
   })
 
+  const currentUrl = window.location.href
+
   if (loading) return <p>Loading ...</p>
   if (error) return <p>Error ...</p>
 
@@ -53,7 +55,7 @@ const ResultPoll = () => {
             })}
           </div>
           <div className='w-full flex items-center justify-center gap-2'>
-            <Button content={'Share'} link={'/'} secondary={true}/>
+            <Button content={'Share'} event={() => navigator.clipboard.writeText(currentUrl)} secondary={true}/>
           </div>
         </div>
       </div>
