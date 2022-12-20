@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import Button from '../components/Button'
 import { formatDistance } from 'date-fns'
 import OptionsResult from '../components/OptionResult'
+import Snackbar from '../components/Snackbar'
 
 const GET_POLL_RESULT = gql`
 query Poll($id: Int) {
@@ -46,6 +47,7 @@ const ResultPoll = () => {
   const paramsId = parseInt(id)
   const currentUrl = window.location.href
   const [currentPoll, setCurrentPoll] = useState()
+  const [open, setOpen] = useState(false)
 
   const { loading, error, data: currentPollData } = useQuery(GET_POLL_RESULT, {
     variables: { id: paramsId }
@@ -73,11 +75,15 @@ const ResultPoll = () => {
           <div className='mb-10'>
             <OptionsResult data={currentPollData}/>
           </div>
-          <div className='w-full flex items-center justify-center gap-2'>
-            <Button content={'Share'} event={() => navigator.clipboard.writeText(currentUrl)} secondary={true}/>
+          <div className='w-full flex flex-col items-center justify-center gap-2'>
+            <Button content={'Share'} event={() => {
+              navigator.clipboard.writeText(currentUrl)
+              setOpen(true)
+            }} secondary={true}/>
           </div>
         </div>
       </div>
+      <Snackbar open={open} setOpen={setOpen}/>
     </Layout>
   )
 }
