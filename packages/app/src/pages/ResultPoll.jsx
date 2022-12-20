@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Layout from '../Layout'
-import { useQuery, gql } from '@apollo/client'
+import { useQuery, gql, useSubscription } from '@apollo/client'
 import { useParams } from 'react-router-dom'
 import Button from '../components/Button'
 import { formatDistance } from 'date-fns'
@@ -37,16 +37,18 @@ subscription Subscription($pollId: Int) {
 const ResultPoll = () => {
   const { id } = useParams()
   const paramsId = parseInt(id)
+  const currentUrl = window.location.href
 
   const { loading, error, data } = useQuery(GET_POLL_RESULT, {
     variables: { id: paramsId }
   })
 
-  const [options, setOptions] = useState([])
-  const currentUrl = window.location.href
+  const { data: optionsData, loading: optionsLoading, error: optionsError } = useSubscription(GET_OPTIONS_UPDATE, { variables: { pollId: paramsId } })
 
   if (loading) return <p>Loading ...</p>
   if (error) return <p>Error ...</p>
+
+  console.log(optionsData)
 
   return (
     <Layout>
