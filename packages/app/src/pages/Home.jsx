@@ -15,7 +15,9 @@ const Home = () => {
           <p className='mb-10
                         text-base sm:text-base md:text-base lg:text-lg
           '>Want to ask your friends where to go on Friday night or organise a meeting with colleagues? Create a survey - and get answers in no time.</p>
-          <Button content={'Create a poll'} link={'/create'} secondary={false}/>
+          <div className='w-full'>
+            <Button content={'Create a poll'} link={'/create'} secondary={false}/>
+          </div>
         </div>
       </div>
     </Layout>

@@ -15,14 +15,16 @@ const Button = ({ type, content, link, secondary, event }) => {
   }
 
   return (
-    <button
-      type={type}
-      className={secondary
-        ? 'w-full h-10 bg-slate-500 rounded-md font-medium hover:bg-slate-400 duration-300'
-        : 'w-full h-10 bg-sky-500 rounded-md font-semibold hover:bg-sky-400 duration-300'}
-    >
-      <Link to={link}>{content}</Link>
-    </button>
+    <Link to={link}>
+      <button
+        type={type}
+        className={secondary
+          ? 'w-full h-10 bg-slate-500 rounded-md font-medium hover:bg-slate-400 duration-300'
+          : 'w-full h-10 bg-sky-500 rounded-md font-semibold hover:bg-sky-400 duration-300'}
+      >
+        {content}
+      </button>
+    </Link>
   )
 }
 

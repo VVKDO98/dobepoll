@@ -59,12 +59,16 @@ const FormikForm = () => {
                 </div>
               ))}
             </div>
-            <div className='flex flex-col gap-3'>
-            <Button type={'button'} content={'Add'} secondary={true} event={() => {
-              values.options.push({ name: '' })
-              setCount(count + 1)
-            }}/>
-            <Button type={'submit'} content={'Create poll'} />
+            <div className='flex flex-col lg:flex-row gap-3'>
+              <div className='w-full lg:w-1/2'>
+                <Button type={'button'} content={'Add'} secondary={true} event={() => {
+                  values.options.push({ name: '' })
+                  setCount(count + 1)
+                }}/>
+              </div>
+              <div className='w-full lg:w-1/2'>
+                <Button type={'submit'} content={'Create poll'} />
+              </div>
             </div>
           </Form>
         )}

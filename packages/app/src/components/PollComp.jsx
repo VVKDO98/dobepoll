@@ -83,10 +83,17 @@ const PollComp = () => {
         <h3 className='mb-1 text-base font-semibold xl:text-xl'>Options</h3>
         {data.poll.options.map((option) => <PollOption key={option.id} id={option.id} name={option.name} setOptionValue={setOptionValue}/>)}
       </div>
-      <div className='w-full flex items-center justify-between gap-2'>
-        <Button content={'Vote'} event={handleVote}/>
-        <Button content={'Results'} link={`/poll/${id}/result`} secondary={true}/>
-        <Button content={'Share'} link={'/'} secondary={true}/>
+      <div className='w-full flex flex-wrap lg:flex-nowrap items-center justify-between gap-2'>
+        <div className='w-full lg:w-1/3'>
+          <Button content={'Vote'} event={handleVote}/>
+        </div>
+        <div className='w-full lg:w-1/3'>
+          <Button content={'Results'} link={`/poll/${id}/result`} secondary={true}/>
+        </div>
+        <div className='w-full lg:w-1/3'>
+          <Button content={'Share'} link={'/'} secondary={true}/>
+        </div>
+
       </div>
     </div>
   )
