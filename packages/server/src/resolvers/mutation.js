@@ -58,16 +58,21 @@ const Mutation = {
           options_id: vote.options_id
         }
       })
-      const getVotes = await prisma.options.findMany({
+      const getVotes = await prisma.polls.findUnique({
         where: {
-          polls_id: vote.polls_id
+          id: vote.polls_id
         },
         include: {
-          _count: {
-            select: { votes: true }
+          options: {
+            include: {
+              _count: {
+                select: { votes: true }
+              }
+            }
           }
         }
       })
+      console.log(getVotes)
       pubsub.publish(`VOTE_ADDED_${vote.polls_id}`, { voteSub: getVotes })
       return resVote ? 'Vote updated' : null
     } catch (e) { console.error(e) }

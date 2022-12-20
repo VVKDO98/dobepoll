@@ -4,6 +4,7 @@ import { useQuery, gql, useSubscription } from '@apollo/client'
 import { useParams } from 'react-router-dom'
 import Button from '../components/Button'
 import { formatDistance } from 'date-fns'
+import OptionsResult from '../components/OptionResult'
 
 const GET_POLL_RESULT = gql`
 query Poll($id: Int) {
@@ -24,11 +25,17 @@ query Poll($id: Int) {
 `
 
 const GET_OPTIONS_UPDATE = gql`
-subscription Subscription($pollId: Int) {
+subscription VoteSub($pollId: Int) {
   voteSub(pollId: $pollId) {
+    created_at
+    description
+    id
     name
-    _count {
-      votes
+    options {
+      _count {
+        votes
+      }
+      name
     }
   }
 }
@@ -38,8 +45,9 @@ const ResultPoll = () => {
   const { id } = useParams()
   const paramsId = parseInt(id)
   const currentUrl = window.location.href
+  const [currentPoll, setCurrentPoll] = useState()
 
-  const { loading, error, data } = useQuery(GET_POLL_RESULT, {
+  const { loading, error, data: currentPollData } = useQuery(GET_POLL_RESULT, {
     variables: { id: paramsId }
   })
 
@@ -56,16 +64,12 @@ const ResultPoll = () => {
         <h1 className='font-bold text-3xl mb-10'>Result</h1>
         <div className='w-full p-5 dark:bg-slate-600 rounded-md'>
           <div className='mb-10'>
-            <h2 className='mb-1 text-xl font-semibold xl:text-2xl'>{data.poll.name}</h2>
-            <p className='mb-1 xl:text-lg'>{data.poll.description}</p>
-            <p className='text-xs xl:text-sm'>{formatDistance(new Date(parseInt(data.poll.created_at)), new Date(), { addSuffix: true })}</p>
+            <h2 className='mb-1 text-xl font-semibold xl:text-2xl'>{currentPollData.poll.name}</h2>
+            <p className='mb-1 xl:text-lg'>{currentPollData.poll.description}</p>
+            <p className='text-xs xl:text-sm'>{formatDistance(new Date(parseInt(currentPollData.poll.created_at)), new Date(), { addSuffix: true })}</p>
           </div>
           <div className='mb-10'>
-            {data.poll.options.map((option) => {
-              return <div key={option.id}>
-                        <p>{option.name} : {option._count.votes} votes</p>
-                      </div>
-            })}
+            <OptionsResult data={currentPollData} currentPoll={currentPoll}/>
           </div>
           <div className='w-full flex items-center justify-center gap-2'>
             <Button content={'Share'} event={() => navigator.clipboard.writeText(currentUrl)} secondary={true}/>

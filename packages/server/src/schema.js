@@ -60,7 +60,7 @@ const typeDefs = `
   }
 
   type Subscription {
-    voteSub(pollId: Int): [Options]
+    voteSub(pollId: Int): Poll
   }
 
   type PollResponse {
