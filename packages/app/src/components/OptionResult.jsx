@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-const OptionResult = ({ data, subscribeToNewVote }) => {
+const OptionResult = ({ data }) => {
   return (
     <>
       {data.poll.options.map((option) => {

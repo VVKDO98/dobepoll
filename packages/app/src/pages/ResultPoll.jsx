@@ -53,10 +53,12 @@ const ResultPoll = () => {
 
   const { data: optionsData, loading: optionsLoading, error: optionsError } = useSubscription(GET_OPTIONS_UPDATE, { variables: { pollId: paramsId } })
 
+  useEffect(() => {
+    setCurrentPoll(optionsData)
+  }, [optionsData])
+
   if (loading) return <p>Loading ...</p>
   if (error) return <p>Error ...</p>
-
-  console.log(optionsData)
 
   return (
     <Layout>
@@ -69,7 +71,7 @@ const ResultPoll = () => {
             <p className='text-xs xl:text-sm'>{formatDistance(new Date(parseInt(currentPollData.poll.created_at)), new Date(), { addSuffix: true })}</p>
           </div>
           <div className='mb-10'>
-            <OptionsResult data={currentPollData} currentPoll={currentPoll}/>
+            <OptionsResult data={currentPollData}/>
           </div>
           <div className='w-full flex items-center justify-center gap-2'>
             <Button content={'Share'} event={() => navigator.clipboard.writeText(currentUrl)} secondary={true}/>
