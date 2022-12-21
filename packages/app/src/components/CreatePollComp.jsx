@@ -43,19 +43,40 @@ const FormikForm = () => {
       >
         {({ values }) => (
           <Form className='w-full'>
-            <div className='mb-3 flex flex-col'>
-              <label htmlFor="name">Name</label>
-              <Field className='dark:bg-slate-800 dark:border-slate-800 rounded-md' type="text" name="name" />
+            <div className='mb-5 flex flex-col'>
+              <label
+                htmlFor="name"
+                className='text-base font-light mb-1'
+              >Name</label>
+              <Field
+                type="text"
+                name="name"
+                placeholder="My birthday"
+                className='dark:bg-slate-800 dark:border-slate-800 rounded-md placeholder:text-slate-600'/>
             </div>
-            <div className='mb-3 flex flex-col'>
-              <label htmlFor="description">Description</label>
-              <Field className='dark:bg-slate-800 dark:border-slate-800 rounded-md' type="text" name="description" />
+            <div className='mb-5 flex flex-col'>
+              <label
+                htmlFor="description"
+                className='text-base font-light mb-1'
+              >Description</label>
+              <Field
+                type="text"
+                name="description"
+                placeholder='You are invited to my birthday ...'
+                className='dark:bg-slate-800 dark:border-slate-800 rounded-md placeholder:text-slate-600' />
             </div>
-            <div>
-              <label htmlFor="options">Options</label>
+            <div className='mb-5 flex flex-col'>
+              <label
+                htmlFor="options"
+                className='text-base font-light mb-1'
+              >Options</label>
               {values.options.map((item, idx) => (
                 <div className='mb-3' key={`name-${idx}`}>
-                  <Field className='w-full dark:bg-slate-800 dark:border-slate-800 rounded-md' type="text" name={`options[${idx}].name`} />
+                  <Field
+                    type="text"
+                    name={`options[${idx}].name`}
+                    placeholder='Day'
+                    className='w-full dark:bg-slate-800 dark:border-slate-800 rounded-md placeholder:text-slate-600'/>
                 </div>
               ))}
             </div>
