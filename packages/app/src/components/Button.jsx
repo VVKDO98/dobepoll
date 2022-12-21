@@ -15,7 +15,7 @@ const Button = ({ type, content, link, secondary, event }) => {
   }
 
   return (
-    <Link to={link}>
+    <Link to={link} replace>
       <button
         type={type}
         className={secondary

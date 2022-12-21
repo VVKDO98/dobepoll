@@ -64,22 +64,27 @@ const ResultPoll = () => {
 
   return (
     <Layout>
-      <div className='w-full pt-24'>
-        <h1 className='font-bold text-3xl mb-10'>Result</h1>
+      <div className='w-full mt-24'>
+        <h1 className='font-bold text-3xl mb-5'>Result</h1>
         <div className='w-full p-5 dark:bg-slate-600 rounded-md'>
           <div className='mb-10'>
-            <h2 className='mb-1 text-xl font-semibold xl:text-2xl'>{currentPollData.poll.name}</h2>
-            <p className='mb-1 xl:text-lg'>{currentPollData.poll.description}</p>
-            <p className='text-xs xl:text-sm'>{formatDistance(new Date(parseInt(currentPollData.poll.created_at)), new Date(), { addSuffix: true })}</p>
+            <h2 className='mb-1 text-2xl font-semibold'>{currentPollData.poll.name}</h2>
+            <p className='mb-1 text-base'>{currentPollData.poll.description}</p>
+            <p className='text-xs font-light'>{formatDistance(new Date(parseInt(currentPollData.poll.created_at)), new Date(), { addSuffix: true })}</p>
           </div>
-          <div className='mb-10'>
+          <div className='mb-10 flex flex-col sm:flex-row sm:flex-wrap justify-center gap-5'>
             <OptionsResult data={currentPollData}/>
           </div>
-          <div className='w-full flex flex-col items-center justify-center gap-2'>
-            <Button content={'Share'} event={() => {
-              navigator.clipboard.writeText(currentUrl)
-              setOpen(true)
-            }} secondary={true}/>
+          <div className='w-full flex flex-col lg:flex-row items-center justify-center gap-2'>
+            <div className='w-full lg:w-1/2'>
+              <Button content={'Back to vote'} link={`/poll/${id}`} secondary={true}/>
+            </div>
+            <div className='w-full lg:w-1/2'>
+              <Button content={'Share results'} event={() => {
+                navigator.clipboard.writeText(currentUrl)
+                setOpen(true)
+              }} secondary={false}/>
+            </div>
           </div>
         </div>
       </div>
