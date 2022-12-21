@@ -11,9 +11,7 @@ const Navbar = () => {
           className='font-bold text-xl'
           >DobePoll</Link>
         <div className='w-2/5 sm:w-1/4 lg:w-1/6'>
-          <Link
-            to='/create'
-            className='dark:hover:text-sky-500'>
+          <Link to='/create'>
             <Button content={'Create a poll'} secondary={true}/>
           </Link>
         </div>
