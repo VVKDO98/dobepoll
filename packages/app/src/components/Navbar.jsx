@@ -1,18 +1,24 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Button from './Button'
 
 const Navbar = () => {
   return (
-    <nav className='fixed top-5 w-full mx-auto'>
-      <div className='w-4/5 mx-auto flex justify-between'>
+    <nav className='w-full pt-10'>
+      <div className='w-4/5 mx-auto'>
         <div className='w-full flex justify-between items-center gap-2 sm:w-auto sm:gap-10'>
-          <Link to='/' className='font-semibold'>DobePoll</Link>
-          <Link to='/create' className='dark:hover:text-sky-500'>Create a poll</Link>
+          <Link
+            to='/'
+            className='font-bold text-xl'
+            >DobePoll</Link>
+          <div className='w-2/5 sm:w-1/4 lg:w-1/6'>
+            <Link
+              to='/create'
+              className='dark:hover:text-sky-500'>
+              <Button content={'Create a poll'} secondary={true}/>
+            </Link>
+          </div>
         </div>
-        {/* <div className='hidden sm:flex items-center gap-2 sm:gap-10'>
-          <Link to="/" className='dark:hover:text-sky-500'>Register</Link>
-          <Link to="/" className='px-5 py-2 dark:bg-sky-500 rounded-md font-semibold hover:dark:bg-white hover:dark:text-slate-800'>Login</Link>
-        </div> */}
       </div>
     </nav>
   )
