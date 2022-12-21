@@ -1,3 +1,5 @@
+📅 December 2022
+
 # DobePoll
 
 ![Screenshot](/Screenshot.png)
@@ -17,5 +19,3 @@ Dobepoll is a simple and quick online survey creation application. It allows use
 
 - Backend : [Benoit Blaevoet](https://github.com/BenoitBlaevoet)
 - Frontend : [Doriano Vanvolcksom](https://github.com/VVKDO98)
-
-📅 December 2022
