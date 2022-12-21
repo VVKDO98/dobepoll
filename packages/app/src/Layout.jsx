@@ -5,8 +5,8 @@ const Layout = ({ children }) => {
   return (
     <>
       <div className='w-screen h-screen relative dark:bg-slate-800 dark:text-slate-50 '>
-      <Navbar/>
-        <main className='w-4/5 h-full mx-auto'>
+        <main className='w-4/5 h-full mx-auto lg:w-3/4 2xl:w-2/3'>
+        <Navbar/>
           {children}
         </main>
       </div>

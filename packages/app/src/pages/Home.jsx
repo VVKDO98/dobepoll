@@ -5,9 +5,8 @@ import Button from '../components/Button'
 const Home = () => {
   return (
     <Layout>
-      <div className='w-full h-full flex items-center'>
-        <div className='w-full
-                        h-2/5 sm:h-1/3
+      <div className='w-full mt-10'>
+        <div className='w-full h-2/5 sm:h-1/3
                         p-5 dark:bg-slate-600 rounded-md flex flex-col items-start justify-center'>
           <h1 className='mb-10
                         text-2xl sm:text-2xl md:text-2xl lg:text-3xl
