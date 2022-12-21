@@ -73,7 +73,11 @@ const PollComp = ({ setOpen, currentUrl }) => {
   }
 
   return (
-    <div className='w-full p-5 dark:bg-slate-600 rounded-md'>
+    <div
+      className='
+      w-full p-5
+      bg-slate-50 dark:bg-slate-600
+      rounded-md'>
       <div className='mb-10'>
         <h2 className='mb-1 text-2xl font-semibold'>{data.poll.name}</h2>
         <p className='mb-1 text-base'>{data.poll.description}</p>

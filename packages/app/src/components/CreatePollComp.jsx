@@ -27,7 +27,10 @@ const FormikForm = () => {
   const navigate = useNavigate()
 
   return (
-    <div className='w-full p-5 dark:bg-slate-600 rounded-md'>
+    <div
+      className='
+      w-full p-5 rounded-md
+      bg-slate-50 dark:bg-slate-600'>
       <Formik
         initialValues={{
           name: '',
@@ -52,7 +55,7 @@ const FormikForm = () => {
                 type="text"
                 name="name"
                 placeholder="My birthday"
-                className='dark:bg-slate-800 dark:border-slate-800 rounded-md placeholder:text-slate-600'/>
+                className='bg-slate-200 border-slate-200 dark:bg-slate-800 dark:border-slate-800 rounded-md placeholder:text-slate-600'/>
             </div>
             <div className='mb-5 flex flex-col'>
               <label
@@ -63,7 +66,7 @@ const FormikForm = () => {
                 type="text"
                 name="description"
                 placeholder='You are invited to my birthday ...'
-                className='dark:bg-slate-800 dark:border-slate-800 rounded-md placeholder:text-slate-600' />
+                className='bg-slate-200 border-slate-200 dark:bg-slate-800 dark:border-slate-800 rounded-md placeholder:text-slate-600' />
             </div>
             <div className='mb-5 flex flex-col'>
               <label
@@ -76,7 +79,7 @@ const FormikForm = () => {
                     type="text"
                     name={`options[${idx}].name`}
                     placeholder='Day'
-                    className='w-full dark:bg-slate-800 dark:border-slate-800 rounded-md placeholder:text-slate-600'/>
+                    className='w-full bg-slate-200 border-slate-200 dark:bg-slate-800 dark:border-slate-800 rounded-md placeholder:text-slate-600'/>
                 </div>
               ))}
             </div>

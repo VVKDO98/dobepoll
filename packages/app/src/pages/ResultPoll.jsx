@@ -66,7 +66,10 @@ const ResultPoll = () => {
     <Layout>
       <div className='w-full mt-24'>
         <h1 className='font-bold text-3xl mb-5'>Result</h1>
-        <div className='w-full p-5 dark:bg-slate-600 rounded-md'>
+        <div
+          className='w-full p-5
+        bg-slate-50 dark:bg-slate-600
+          rounded-md'>
           <div className='mb-10'>
             <h2 className='mb-1 text-2xl font-semibold'>{currentPollData.poll.name}</h2>
             <p className='mb-1 text-base'>{currentPollData.poll.description}</p>
