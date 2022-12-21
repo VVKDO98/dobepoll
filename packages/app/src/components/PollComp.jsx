@@ -27,7 +27,7 @@ mutation Mutation($vote: VoteInput!) {
 }
 `
 
-const PollComp = () => {
+const PollComp = ({ setOpen, currentUrl }) => {
   const navigate = useNavigate()
   const { id } = useParams()
   const paramsId = parseInt(id)
@@ -75,12 +75,12 @@ const PollComp = () => {
   return (
     <div className='w-full p-5 dark:bg-slate-600 rounded-md'>
       <div className='mb-10'>
-        <h2 className='mb-1 text-xl font-semibold xl:text-2xl'>{data.poll.name}</h2>
-        <p className='mb-1 xl:text-lg'>{data.poll.description}</p>
-        <p className='text-xs xl:text-sm'>{formatDistance(new Date(parseInt(data.poll.created_at)), new Date(), { addSuffix: true })}</p>
+        <h2 className='mb-1 text-2xl font-semibold'>{data.poll.name}</h2>
+        <p className='mb-1 text-base'>{data.poll.description}</p>
+        <p className='text-xs font-light'>{formatDistance(new Date(parseInt(data.poll.created_at)), new Date(), { addSuffix: true })}</p>
       </div>
       <div className='mb-10'>
-        <h3 className='mb-1 text-base font-semibold xl:text-xl'>Options</h3>
+        <h3 className='mb-1 text-lg font-semibold'>Options</h3>
         {data.poll.options.map((option) => <PollOption key={option.id} id={option.id} name={option.name} setOptionValue={setOptionValue}/>)}
       </div>
       <div className='w-full flex flex-wrap lg:flex-nowrap items-center justify-between gap-2'>
@@ -88,12 +88,14 @@ const PollComp = () => {
           <Button content={'Vote'} event={handleVote}/>
         </div>
         <div className='w-full lg:w-1/3'>
-          <Button content={'Results'} link={`/poll/${id}/result`} secondary={true}/>
+          <Button content={'See results'} link={`/poll/${id}/result`} secondary={true}/>
         </div>
         <div className='w-full lg:w-1/3'>
-          <Button content={'Share'} link={'/'} secondary={true}/>
+          <Button content={'Share the poll'} secondary={true} event={() => {
+            navigator.clipboard.writeText(currentUrl)
+            setOpen(true)
+          }}/>
         </div>
-
       </div>
     </div>
   )
